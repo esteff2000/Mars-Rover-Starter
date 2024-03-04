@@ -27,8 +27,6 @@ describe("2 commands received", function () {
     let commands = [new Command ('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')]
     let message = new Message('Test message with two commands', commands)
     let resultsObject = new Rover(12).receiveMessage(message)
-    // receiveMessage returns an object that has a name and a results array
-    // resultsObject = {name: messageName, results: []}
     expect(resultsObject.results.length).toBe(2)
     
   });
@@ -38,18 +36,6 @@ describe("Status check", function () {
   test('reponds correctly to the status check command', function(){
     let message = new Message('Status check', [new Command('STATUS_CHECK')])
     let resultsObject = new Rover(12).receiveMessage(message) 
-    //  resultsObject = {name: messageName, results: []}
-    /* results = [
-    {
-      completed: true, 
-      roverStatus: {
-        mode: string
-        generatorWatts: 110
-        position: 12
-      }
-    }
-    ]
-      */
     expect(resultsObject.results[0].roverStatus.mode).toBe('NORMAL');
     expect(resultsObject.results[0].roverStatus.generatorWatts).toBe(110);
     expect(resultsObject.results[0].roverStatus.position).toBe(12);
